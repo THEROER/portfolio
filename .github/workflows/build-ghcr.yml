@@ -14,8 +14,8 @@ concurrency:
 
 env:
   REGISTRY: ghcr.io
-  # ghcr.io/<owner>/portfolia — owner lowercased at runtime.
-  IMAGE_NAME: ${{ github.repository_owner }}/portfolia
+  # ghcr.io/<owner>/portfolio — owner lowercased at runtime.
+  IMAGE_NAME: ${{ github.repository_owner }}/portfolio
 
 jobs:
   build:
