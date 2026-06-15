@@ -1,0 +1,12 @@
+services:
+  portfolio:
+    extends:
+      file: ./docker-compose.common.yml
+      service: portfolio-base
+    container_name: portfolio
+    networks:
+      - shared
+
+networks:
+  shared:
+    driver: bridge

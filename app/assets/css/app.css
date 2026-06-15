@@ -1,0 +1,71 @@
+/*
+ * Single CSS entry: Tailwind v4 + the kit's @theme/token block.
+ */
+@import "tailwindcss";
+
+/* The kit's design tokens + @theme block: --color-*, --size-control-*, radii,
+   and the bg-surface / rounded-control / text-ink utility definitions.
+   The kit is vendored into this repo (vendor/leavepulse-ui) so the app is
+   self-contained and builds in Docker without the external LeavePulse checkout. */
+@import "../../../vendor/leavepulse-ui/src/tokens/tokens.css";
+
+/* Tailwind only generates the utilities it can SEE, so point its scanner at the
+   vendored kit's compiled components in dist. */
+@source "../../../vendor/leavepulse-ui/dist";
+
+:root {
+  /* Space Grotesk / IBM Plex Mono are loaded via Google Fonts in nuxt.config.
+     The lime theme sets --font-sans to Space Grotesk at runtime; this is the
+     pre-hydration fallback so the very first paint already looks right. */
+  --font-sans: "Space Grotesk", "Inter", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", "JetBrains Mono", ui-monospace, monospace;
+  color-scheme: dark;
+}
+
+html,
+body {
+  margin: 0;
+  background: var(--color-surface);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  /* subtle lime grid so the near-black surface isn't dead flat */
+  background-image:
+    radial-gradient(circle at 50% -10%, rgba(196, 240, 66, 0.08), transparent 45%),
+    linear-gradient(rgba(196, 240, 66, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(196, 240, 66, 0.035) 1px, transparent 1px);
+  background-size: 100% 100%, 48px 48px, 48px 48px;
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+::selection {
+  background: var(--color-brand);
+  color: var(--color-ink-inverse);
+}
+
+/* Reusable page rhythm */
+.section {
+  max-width: 72rem;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-brand);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

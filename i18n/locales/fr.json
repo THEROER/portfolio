@@ -1,0 +1,149 @@
+{
+  "nav": {
+    "work": "Projets",
+    "stack": "Stack",
+    "services": "Services",
+    "contact": "Contact",
+    "hire": "Me contacter"
+  },
+  "hero": {
+    "eyebrow": "Backend · Full-stack · Disponible en freelance",
+    "title": "Je conçois et livre des plateformes microservices en production.",
+    "subtitle": "Ingénieur freelance basé en France. Python, Rust et TypeScript — d'une seule API typée à un maillage de 40 services avec temps réel, facturation et observabilité intégrés.",
+    "ctaPrimary": "Démarrer un projet",
+    "ctaSecondary": "Voir les projets",
+    "available": "Disponible"
+  },
+  "stats": {
+    "services": "Microservices livrés en solo",
+    "languages": "Langages en production",
+    "years": "Ans à construire des backends",
+    "stack": "Stack polyglotte"
+  },
+  "work": {
+    "eyebrow": "Projets sélectionnés",
+    "title": "Ce que je construis",
+    "subtitle": "Un aperçu du type de systèmes dont je prends la responsabilité de bout en bout."
+  },
+  "projects": {
+    "leavepulse": {
+      "tag": "Projet phare · Réalisé en solo",
+      "title": "LeavePulse — plateforme SaaS",
+      "summary": "Une plateforme d'environ 40 services réalisée seul : un BFF public typé au-dessus d'un maillage gRPC, une authentification hybride RBAC/JWT, deux passerelles websocket temps réel, une facturation avec webhooks de paiement, et de l'observabilité adossée à ClickHouse.",
+      "points": [
+        "BFF public typé (Litestar + msgspec) générant son propre OpenAPI au-dessus d'un maillage gRPC interne",
+        "Auth : RBAC + JWT/JWKS hybride, Argon2id avec pepper, identifiants Snowflake, jetons de handshake websocket éphémères",
+        "Deux passerelles temps réel (client + agent) avec handshake façon Discord et diffusion via NATS JetStream",
+        "Facturation avec intégration d'API marchande, webhooks, abonnements et cycle de vie événementiel des commandes",
+        "Launcher desktop multiplateforme en Rust + Tauri 2 + Vue 3, monorepo xtask et cible Android",
+        "Approche SDK-first : un paquet de contrat public avec des SDK générés en Python, TypeScript et Rust"
+      ]
+    },
+    "sdkgen": {
+      "tag": "Platform engineering",
+      "title": "Générateur de SDK multi-langage",
+      "summary": "Une chaîne d'outils contract-first (en Rust) qui lit les specs OpenAPI de la plateforme et le manifeste temps réel, construit une représentation intermédiaire, et émet un SDK typé orienté ressources pour TypeScript, Python et Rust à la fois — plus une référence du graphe d'objets.",
+      "points": [
+        "parser → IR → émetteurs : une seule source de vérité, trois bibliothèques clientes idiomatiques",
+        "Pipeline entièrement automatisé (cargo xtask) : snapshot, régénération, publication vers des dépôts par langage — idempotent et hors-ligne",
+        "Cinq méthodes d'auth (device flow, PAT, OAuth2 + PKCE, service tokens, cookie login) et un transport Nuxt avec cookies SSR, CSRF et refresh-on-401"
+      ]
+    },
+    "toolkit": {
+      "tag": "Bibliothèque open-source",
+      "title": "Toolkit d'infrastructure de services",
+      "summary": "Une bibliothèque Python publique et réutilisable sur laquelle repose chaque service backend de la plateforme — la couche partagée pour l'observabilité, gRPC, la résilience et le cache, pour que chaque service embarque gratuitement une plomberie de niveau production.",
+      "points": [
+        "Observabilité : instrumentation Prometheus, logs structurés à portée de requête, log des requêtes SQL lentes, tracing OpenTelemetry avec auto-instrumentation OTLP",
+        "Helpers gRPC (canaux partagés, intercepteurs métriques/JWT/internal-token, traduction d'erreurs), rate limiting Redis et un cache TTL avec déduplication in-flight et fallback Redis",
+        "Packagé avec des extras optionnels et des générateurs de code CLI — un vrai outil de plateforme interne, pas du code de colle"
+      ]
+    },
+    "magicutils": {
+      "tag": "Bibliothèque publiée",
+      "title": "MagicUtils — toolkit Minecraft",
+      "summary": "Une bibliothèque Java/Kotlin multiplateforme publiée (300+ fichiers source) avec son propre dépôt Maven et sa documentation. La base partagée sur laquelle d'autres plugins se construisent — dont l'agent LeavePulse.",
+      "points": [
+        "Un seul toolkit pour Bukkit/Paper, BungeeCord, Velocity, Fabric et NeoForge",
+        "Modulaire : config (YAML/TOML), commandes (dont Brigadier), localisation, clients HTTP, placeholders, logging",
+        "Distribué via un dépôt Maven auto-hébergé sous dev.ua.theroer avec documentation générée"
+      ]
+    },
+    "agent": {
+      "tag": "Java · 5 plateformes",
+      "title": "Agent serveur LeavePulse",
+      "summary": "Le côté serveur de la plateforme : un agent Minecraft multiplateforme (190+ fichiers Java) qui diffuse de la télémétrie respectueuse de la vie privée et des événements de whitelist vers le backend, en HTTP et websockets.",
+      "points": [
+        "Bukkit/Paper, BungeeCord/Waterfall, Velocity, Fabric et NeoForge depuis un core partagé",
+        "Application de whitelist (kick/restrict), suivi du temps de jeu, liaison de compte en jeu",
+        "Mise à jour automatique par canal avec validation SHA-256 et manifestes signés Ed25519"
+      ]
+    },
+    "uikit": {
+      "tag": "Design system",
+      "title": "Kit UI Vue piloté par tokens",
+      "summary": "La bibliothèque de composants qui fait tourner ce site : ~40 composants Vue accessibles, un moteur de thème runtime qui re-skine tout depuis un jeu de tokens JSON, sur Tailwind v4, reka-ui et motion-v.",
+      "points": [
+        "Theming runtime — les thèmes sont du JSON, appliqués en direct via des variables CSS",
+        "Primitives accessibles sur reka-ui avec tailwind-variants pour un style typé",
+        "Livré comme paquet ESM versionné, tree-shakeable, avec types générés"
+      ]
+    },
+    "automation": {
+      "tag": "Bots & automatisation",
+      "title": "Bots, scrapers & intégrations",
+      "summary": "Bots Telegram et Discord, pipelines de scraping et intégrations de services — le travail rapide et à fort levier qui automatise un vrai processus et se rentabilise vite.",
+      "points": [
+        "Services et bots Python asynchrones avec un déploiement propre",
+        "Intégrations d'API tierces et traitement de webhooks",
+        "Pipelines de données et tâches planifiées"
+      ]
+    }
+  },
+  "stackSection": {
+    "eyebrow": "Stack",
+    "title": "Mes outils de prédilection",
+    "groups": {
+      "backend": "Backend",
+      "frontend": "Frontend",
+      "systems": "Systèmes & infra",
+      "data": "Données & temps réel"
+    }
+  },
+  "services": {
+    "eyebrow": "Comment je peux aider",
+    "title": "Façons de travailler ensemble",
+    "items": {
+      "backend": {
+        "title": "Backend & API",
+        "desc": "Services FastAPI / Litestar, maillages gRPC, auth, facturation — conçus pour la production, pas pour la démo."
+      },
+      "automation": {
+        "title": "Bots & automatisation",
+        "desc": "Bots Telegram/Discord, scrapers, intégrations et scripts qui vous enlèvent un processus manuel."
+      },
+      "frontend": {
+        "title": "Web & full-stack",
+        "desc": "Front-ends Nuxt / Vue / TypeScript et fonctionnalités full-stack, branchés sur un backend solide."
+      },
+      "rescue": {
+        "title": "Reprise & revue",
+        "desc": "Auditer, déboguer ou finir une base de code existante — Python, Rust ou TypeScript."
+      }
+    }
+  },
+  "contact": {
+    "eyebrow": "Contact",
+    "title": "Parlons de votre projet",
+    "subtitle": "Dites-moi ce que vous voulez construire. Je réponds généralement en quelques heures.",
+    "email": "Email",
+    "telegram": "Telegram",
+    "github": "GitHub",
+    "linkedin": "LinkedIn",
+    "cta": "M'écrire"
+  },
+  "footer": {
+    "built": "Construit avec Nuxt et le kit UI LeavePulse — thème lime.",
+    "location": "Ingénieur freelance · France"
+  }
+}

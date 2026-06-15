@@ -1,0 +1,9 @@
+node_modules
+.nuxt
+.output
+.git
+.github
+*.log
+.DS_Store
+.playwright-mcp
+README.md

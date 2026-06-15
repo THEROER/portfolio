@@ -1,0 +1,24 @@
+name: build-and-push
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - "README.md"
+      - "LICENSE"
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  build:
+    uses: LeavePulse/service-toolkit/.github/workflows/reusable-build-ghcr.yml@main
+    with:
+      dockerfile: Dockerfile
+    secrets: inherit

@@ -1,0 +1,32 @@
+# Dependencies
+node_modules
+
+# Nuxt build output
+.nuxt
+.output
+.nitro
+.cache
+# NB: only ignore a build dist at the repo root, NOT vendor/leavepulse-ui/dist
+# (the vendored kit's compiled components MUST be committed).
+/dist
+
+# Logs
+*.log
+
+# Editor / OS
+.DS_Store
+.vscode
+.idea
+
+# Tooling
+.playwright-mcp
+
+# Local debug scratch (do not commit)
+_twtest*.mjs
+_scan/
+
+# Env / secrets — never commit
+.env
+.env.*
+*.local
+.npmrc

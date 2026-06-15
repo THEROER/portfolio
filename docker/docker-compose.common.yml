@@ -1,0 +1,23 @@
+services:
+  portfolio-base:
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    image: portfolio
+    restart: always
+    environment:
+      HOST: 0.0.0.0
+      PORT: ${PORT_INTERNAL:-3000}
+    ports:
+      - "${PORTFOLIO_PORT_EXTERNAL:-3009}:${PORT_INTERNAL:-3000}"
+    healthcheck:
+      # Nuxt serves the landing page at /; use it as the liveness probe.
+      test:
+        - CMD
+        - bun
+        - -e
+        - "fetch('http://localhost:'+ (process.env.PORT||3000) +'/').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"
+      interval: 30s
+      retries: 3
+      start_period: 20s
+      timeout: 10s
