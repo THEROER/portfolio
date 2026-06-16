@@ -30,3 +30,5 @@ _scan/
 .env.*
 *.local
 .npmrc
+
+MARKETING.md

@@ -15,7 +15,7 @@
     "./styles.css": "./src/tokens/tokens.css",
     "./tokens.css": "./src/tokens/tokens.css"
   },
-  "sideEffects": ["**/*.css"],
+  "sideEffects": ["**/*.css", "**/icons.ts", "**/icons.js"],
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit -p tsconfig.build.json && vite build --config vite.lib.config.ts",
