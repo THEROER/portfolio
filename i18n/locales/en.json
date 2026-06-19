@@ -1,4 +1,9 @@
 {
+  "seo": {
+    "title": "theroer — Backend & full-stack engineer · Python · Rust · TypeScript",
+    "description": "Freelance backend & full-stack engineer based in France. I design and ship production microservice platforms in Python, Rust and TypeScript — from a single typed API to a 40-service mesh.",
+    "ogTitle": "theroer — backend & full-stack engineer"
+  },
   "nav": {
     "work": "Work",
     "stack": "Stack",

@@ -24,6 +24,8 @@ export default defineNuxtConfig({
   i18n: {
     strategy: "prefix_except_default",
     defaultLocale: "en",
+    // Used to build absolute canonical + hreflang alternate URLs.
+    baseUrl: "https://theroer.dev",
     locales: [
       { code: "en", language: "en-US", name: "English", file: "en.json" },
       { code: "fr", language: "fr-FR", name: "Français", file: "fr.json" },
@@ -33,24 +35,14 @@ export default defineNuxtConfig({
 
   app: {
     head: {
-      htmlAttrs: { lang: "en" },
-      title: "Backend & full-stack engineer — Python · Rust · TypeScript",
+      // lang is set per-locale at runtime via useLocaleHead() on the page.
       meta: [
         { charset: "utf-8" },
         { name: "viewport", content: "width=device-width, initial-scale=1" },
-        {
-          name: "description",
-          content:
-            "Freelance backend & full-stack engineer. I design and ship production microservice platforms in Python, Rust and TypeScript.",
-        },
         { property: "og:type", content: "website" },
-        { property: "og:url", content: "https://theroer.dev" },
-        { property: "og:title", content: "theroer — backend & full-stack engineer" },
-        {
-          property: "og:description",
-          content:
-            "Freelance backend & full-stack engineer. I design and ship production microservice platforms in Python, Rust and TypeScript.",
-        },
+        { property: "og:site_name", content: "theroer" },
+        { property: "og:image", content: "https://theroer.dev/og.png" },
+        { name: "twitter:image", content: "https://theroer.dev/og.png" },
         { name: "twitter:card", content: "summary_large_image" },
         { name: "theme-color", content: "#050505" },
       ],

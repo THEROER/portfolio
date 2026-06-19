@@ -4,6 +4,51 @@ import { LpBadge, LpButton, LpCard, LpIcon, LpStat } from "@leavepulse/ui"
 const { t, tm, rt } = useI18n()
 const { contacts, stack, stats } = useProfile()
 
+// Localized <head>: title/description per locale, plus lang attr, canonical
+// and hreflang alternates emitted by i18n's useLocaleHead.
+const localeHead = useLocaleHead()
+const siteUrl = "https://theroer.dev"
+
+useHead(() => ({
+  htmlAttrs: { ...localeHead.value.htmlAttrs },
+  title: t("seo.title"),
+  link: [...(localeHead.value.link ?? [])],
+  meta: [
+    ...(localeHead.value.meta ?? []),
+    { name: "description", content: t("seo.description") },
+    { property: "og:title", content: t("seo.ogTitle") },
+    { property: "og:description", content: t("seo.description") },
+    { name: "twitter:title", content: t("seo.ogTitle") },
+    { name: "twitter:description", content: t("seo.description") },
+  ],
+}))
+
+// JSON-LD structured data: Person + the site, so search engines and
+// rich results understand who this is and what is offered.
+useHead(() => ({
+  script: [
+    {
+      type: "application/ld+json",
+      innerHTML: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Person",
+        name: "theroer",
+        url: siteUrl,
+        jobTitle: "Backend & full-stack engineer",
+        description: t("seo.description"),
+        email: "mailto:theroer09@gmail.com",
+        address: { "@type": "PostalAddress", addressCountry: "FR" },
+        knowsAbout: ["Python", "Rust", "TypeScript", "Microservices", "gRPC", "Vue", "Nuxt"],
+        sameAs: [
+          "https://github.com/THEROER",
+          "https://www.linkedin.com/in/theroer",
+          "https://t.me/theroer",
+        ],
+      }),
+    },
+  ],
+}))
+
 // pull the project point arrays out of the message catalog
 function points(path: string): string[] {
   const raw = tm(path) as unknown[]

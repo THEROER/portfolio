@@ -1,4 +1,9 @@
 {
+  "seo": {
+    "title": "theroer — Ingénieur backend & full-stack · Python · Rust · TypeScript",
+    "description": "Ingénieur freelance backend & full-stack basé en France. Je conçois et livre des plateformes microservices en production en Python, Rust et TypeScript — d'une seule API typée à un maillage de 40 services.",
+    "ogTitle": "theroer — ingénieur backend & full-stack"
+  },
   "nav": {
     "work": "Projets",
     "stack": "Stack",
