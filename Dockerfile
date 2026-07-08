@@ -8,11 +8,9 @@ WORKDIR /app
 RUN apt-get update && apt-get install -y --no-install-recommends python3 make g++ \
     && rm -rf /var/lib/apt/lists/*
 
-# Install deps first for layer caching. The UI kit is vendored (vendor/), and
-# package.json references it via "file:./vendor/leavepulse-ui", so the vendor
-# dir must be present before install — no private registry / token needed.
+# Install deps first for layer caching. The UI kit (@leavepulse/ui) is pulled
+# from the public npm registry — no private registry / token needed.
 COPY package.json bun.lock ./
-COPY vendor ./vendor
 RUN bun install --frozen-lockfile
 
 COPY . .

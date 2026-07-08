@@ -4,14 +4,12 @@
 @import "tailwindcss";
 
 /* The kit's design tokens + @theme block: --color-*, --size-control-*, radii,
-   and the bg-surface / rounded-control / text-ink utility definitions.
-   The kit is vendored into this repo (vendor/leavepulse-ui) so the app is
-   self-contained and builds in Docker without the external LeavePulse checkout. */
-@import "../../../vendor/leavepulse-ui/src/tokens/tokens.css";
+   and the bg-surface / rounded-control / text-ink utility definitions. */
+@import "@leavepulse/ui/tokens.css";
 
 /* Tailwind only generates the utilities it can SEE, so point its scanner at the
-   vendored kit's compiled components in dist. */
-@source "../../../vendor/leavepulse-ui/dist";
+   kit's compiled components. */
+@source "@leavepulse/ui";
 
 :root {
   /* Space Grotesk / IBM Plex Mono are loaded via Google Fonts in nuxt.config.

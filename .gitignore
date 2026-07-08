@@ -6,8 +6,6 @@ node_modules
 .output
 .nitro
 .cache
-# NB: only ignore a build dist at the repo root, NOT vendor/leavepulse-ui/dist
-# (the vendored kit's compiled components MUST be committed).
 /dist
 
 # Logs

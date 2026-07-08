@@ -23,8 +23,8 @@ billing and observability built in.
 
 ## About this repo
 
-The site itself: Nuxt 3 (v4 layout) + the vendored `@leavepulse/ui` component
-kit, lime theme. Bilingual — English (`/`) and French (`/fr`).
+The site itself: Nuxt 3 (v4 layout) + the [`@leavepulse/ui`](https://www.npmjs.com/package/@leavepulse/ui)
+component kit, lime theme. Bilingual — English (`/`) and French (`/fr`).
 
 ### Develop
 
@@ -53,5 +53,4 @@ docker run -p 3000:3000 portfolio
 
 - Copy: `i18n/locales/en.json` and `i18n/locales/fr.json`.
 - Projects, stack, stats, contacts: `app/composables/useProfile.ts`.
-- The UI kit is vendored under `vendor/leavepulse-ui/` so the app is
-  self-contained (builds without an external checkout).
+- The UI kit ships from npm as `@leavepulse/ui`.
