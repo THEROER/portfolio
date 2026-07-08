@@ -1,10 +1,25 @@
 <script setup lang="ts">
-import { LpButton } from "@leavepulse/ui"
+import { LpButton, LpThemeSwitcher, lime, light, type TokenSet } from "@leavepulse/ui"
 
-const { t, locale, locales, setLocale } = useI18n()
-const switchLocalePath = useSwitchLocalePath()
+const themes = [lime, light]
+
+// Keep the SSR cookie in sync with the kit's own (localStorage) choice so a
+// reload / navigation re-paints the chosen theme instead of the default.
+const { $themeCookie } = useNuxtApp()
+const currentTheme = computed(() => (themes.find((th) => th.name === $themeCookie.value) ?? lime))
+function onThemeChange(theme: TokenSet) {
+  $themeCookie.value = theme.name
+}
+
+const { t, locale, setLocale } = useI18n()
 
 const otherLocale = computed(() => (locale.value === "en" ? "fr" : "en"))
+
+// no_prefix strategy: switching locale is a pure in-place swap (no navigation,
+// URL unchanged), so the scroll position is untouched.
+function switchLanguage() {
+  setLocale(otherLocale.value)
+}
 
 const navItems = computed(() => [
   { href: "#work", label: t("nav.work") },
@@ -36,12 +51,26 @@ const navItems = computed(() => [
       </nav>
 
       <div class="flex items-center gap-2">
-        <NuxtLink
-          :to="switchLocalePath(otherLocale)"
-          class="rounded-control border border-line px-2.5 py-1 font-mono text-xs uppercase text-muted transition-colors hover:border-line-strong hover:text-ink"
+        <ClientOnly>
+          <LpThemeSwitcher
+            :themes="themes"
+            :default="currentTheme"
+            variant="icon"
+            size="sm"
+            @change="onThemeChange"
+          />
+          <template #fallback>
+            <span class="h-[30px] w-[42px]" />
+          </template>
+        </ClientOnly>
+        <button
+          type="button"
+          :aria-label="`Switch language to ${otherLocale.toUpperCase()}`"
+          class="grid h-[30px] min-w-[30px] place-items-center rounded-control border border-line px-1.5 font-mono text-xs uppercase text-muted transition-colors hover:border-line-strong hover:text-ink"
+          @click="switchLanguage"
         >
           {{ otherLocale }}
-        </NuxtLink>
+        </button>
         <a href="#contact">
           <LpButton size="sm">{{ t("nav.hire") }}</LpButton>
         </a>

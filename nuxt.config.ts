@@ -22,7 +22,7 @@ export default defineNuxtConfig({
   },
 
   i18n: {
-    strategy: "prefix_except_default",
+    strategy: "no_prefix",
     defaultLocale: "en",
     // Used to build absolute canonical + hreflang alternate URLs.
     baseUrl: "https://theroer.dev",

@@ -3,13 +3,14 @@
  */
 @import "tailwindcss";
 
-/* The kit's design tokens + @theme block: --color-*, --size-control-*, radii,
-   and the bg-surface / rounded-control / text-ink utility definitions. */
-@import "@leavepulse/ui/tokens.css";
-
-/* Tailwind only generates the utilities it can SEE, so point its scanner at the
-   kit's compiled components. */
-@source "@leavepulse/ui";
+/* The kit's public CSS entry (per its own docs): brings in the design tokens
+   (--color-*, --size-control-*, radii, the @theme block), the always-on
+   utilities, AND — crucially — its own `@source` over the kit's components. The
+   kit resolves those sources relative to itself, so utilities that live only
+   inside kit components (bg-surface-raised, rounded-card, …) get generated too.
+   Importing tokens.css alone (as before) skipped that @source, so those classes
+   were silently dropped from the build. */
+@import "@leavepulse/ui";
 
 :root {
   /* Space Grotesk / IBM Plex Mono are loaded via Google Fonts in nuxt.config.
@@ -18,6 +19,10 @@
   --font-sans: "Space Grotesk", "Inter", system-ui, sans-serif;
   --font-mono: "IBM Plex Mono", "JetBrains Mono", ui-monospace, monospace;
   color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 html,

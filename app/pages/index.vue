@@ -94,17 +94,21 @@ const emailHref = computed(() => contacts.find((c) => c.key === "email")?.href ?
     <main>
       <!-- HERO -->
       <section class="section relative pt-20 pb-16 sm:pt-28 sm:pb-24">
-        <p class="eyebrow mb-5">{{ t("hero.eyebrow") }}</p>
-        <h1 class="max-w-4xl text-4xl font-bold leading-[1.05] tracking-tight sm:text-6xl">
+        <Reveal as="p" class="eyebrow mb-5">{{ t("hero.eyebrow") }}</Reveal>
+        <Reveal
+          :delay="0.08"
+          as="h1"
+          class="max-w-4xl text-4xl font-bold leading-[1.05] tracking-tight sm:text-6xl"
+        >
           {{ t("hero.title") }}
-        </h1>
-        <p class="mt-6 max-w-2xl text-lg leading-relaxed text-muted">
+        </Reveal>
+        <Reveal :delay="0.16" as="p" class="mt-6 max-w-2xl text-lg leading-relaxed text-muted">
           {{ t("hero.subtitle") }}
-        </p>
+        </Reveal>
 
-        <div class="mt-9 flex flex-wrap items-center gap-3">
+        <Reveal :delay="0.24" class="mt-9 flex flex-wrap items-center gap-3">
           <a href="#contact">
-            <LpButton variant="action" size="lg">
+            <LpButton variant="solid" size="lg">
               {{ t("hero.ctaPrimary") }}
             </LpButton>
           </a>
@@ -115,100 +119,119 @@ const emailHref = computed(() => contacts.find((c) => c.key === "email")?.href ?
           </a>
           <span class="ml-1 inline-flex items-center gap-2 text-sm text-muted">
             <span class="relative flex size-2">
-              <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-action opacity-75" />
-              <span class="relative inline-flex size-2 rounded-full bg-action" />
+              <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand opacity-75" />
+              <span class="relative inline-flex size-2 rounded-full bg-brand" />
             </span>
             {{ t("hero.available") }}
           </span>
-        </div>
+        </Reveal>
 
         <!-- STATS -->
         <div class="mt-14 grid grid-cols-2 gap-3 sm:grid-cols-3">
-          <LpStat
-            v-for="s in stats"
-            :key="s.key"
-            :label="t(`stats.${s.key}`)"
-            :value="s.value"
-          />
+          <Reveal v-for="(s, i) in stats" :key="s.key" :delay="0.3 + i * 0.06">
+            <LpStat :label="t(`stats.${s.key}`)" :value="s.value" />
+          </Reveal>
         </div>
       </section>
 
       <!-- WORK -->
       <section id="work" class="section scroll-mt-20 py-16 sm:py-24">
-        <p class="eyebrow mb-3">{{ t("work.eyebrow") }}</p>
-        <h2 class="text-3xl font-bold tracking-tight sm:text-4xl">{{ t("work.title") }}</h2>
-        <p class="mt-3 max-w-2xl text-muted">{{ t("work.subtitle") }}</p>
+        <Reveal as="p" class="eyebrow mb-3">{{ t("work.eyebrow") }}</Reveal>
+        <Reveal :delay="0.06" as="h2" class="text-3xl font-bold tracking-tight sm:text-4xl">
+          {{ t("work.title") }}
+        </Reveal>
+        <Reveal :delay="0.12" as="p" class="mt-3 max-w-2xl text-muted">
+          {{ t("work.subtitle") }}
+        </Reveal>
 
         <div class="mt-10 grid gap-5 lg:grid-cols-3">
-          <ProjectCard
-            v-for="p in projects"
+          <Reveal
+            v-for="(p, i) in projects"
             :key="p.id"
-            :tag="p.tag"
-            :title="p.title"
-            :summary="p.summary"
-            :points="p.points"
-            :accent="p.accent"
+            :delay="(i % 3) * 0.08"
+            class="h-full"
             :class="p.accent ? 'lg:col-span-3 xl:col-span-3' : ''"
-          />
+          >
+            <ProjectCard
+              :tag="p.tag"
+              :title="p.title"
+              :summary="p.summary"
+              :points="p.points"
+              :accent="p.accent"
+            />
+          </Reveal>
         </div>
       </section>
 
       <!-- STACK -->
       <section id="stack" class="section scroll-mt-20 py-16 sm:py-24">
-        <p class="eyebrow mb-3">{{ t("stackSection.eyebrow") }}</p>
-        <h2 class="text-3xl font-bold tracking-tight sm:text-4xl">{{ t("stackSection.title") }}</h2>
+        <Reveal as="p" class="eyebrow mb-3">{{ t("stackSection.eyebrow") }}</Reveal>
+        <Reveal :delay="0.06" as="h2" class="text-3xl font-bold tracking-tight sm:text-4xl">
+          {{ t("stackSection.title") }}
+        </Reveal>
 
         <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <LpCard v-for="group in stack" :key="group.key" variant="soft">
-            <h3 class="mb-4 font-mono text-xs uppercase tracking-widest text-brand">
-              {{ t(`stackSection.groups.${group.key}`) }}
-            </h3>
-            <ul class="flex flex-wrap gap-2">
-              <li
-                v-for="item in group.items"
-                :key="item"
-                class="rounded-control border border-line bg-surface px-2.5 py-1 text-sm text-muted-strong"
-              >
-                {{ item }}
-              </li>
-            </ul>
-          </LpCard>
+          <Reveal
+            v-for="(group, i) in stack"
+            :key="group.key"
+            :delay="(i % 4) * 0.06"
+            class="h-full"
+          >
+            <LpCard variant="flat" class="h-full">
+              <h3 class="mb-4 font-mono text-xs uppercase tracking-widest text-brand">
+                {{ t(`stackSection.groups.${group.key}`) }}
+              </h3>
+              <ul class="flex flex-wrap gap-2">
+                <li
+                  v-for="item in group.items"
+                  :key="item"
+                  class="rounded-control border border-line bg-surface px-2.5 py-1 text-sm text-muted-strong"
+                >
+                  {{ item }}
+                </li>
+              </ul>
+            </LpCard>
+          </Reveal>
         </div>
       </section>
 
       <!-- SERVICES -->
       <section id="services" class="section scroll-mt-20 py-16 sm:py-24">
-        <p class="eyebrow mb-3">{{ t("services.eyebrow") }}</p>
-        <h2 class="text-3xl font-bold tracking-tight sm:text-4xl">{{ t("services.title") }}</h2>
+        <Reveal as="p" class="eyebrow mb-3">{{ t("services.eyebrow") }}</Reveal>
+        <Reveal :delay="0.06" as="h2" class="text-3xl font-bold tracking-tight sm:text-4xl">
+          {{ t("services.title") }}
+        </Reveal>
 
         <div class="mt-10 grid gap-4 sm:grid-cols-2">
-          <LpCard
-            v-for="item in serviceItems"
+          <Reveal
+            v-for="(item, i) in serviceItems"
             :key="item.key"
-            variant="raised"
-            :interactive="true"
-            class="flex gap-4"
+            :delay="(i % 2) * 0.08"
+            class="h-full"
           >
-            <span class="grid size-11 shrink-0 place-items-center rounded-control bg-brand-soft">
-              <LpIcon :name="item.icon" :size="20" class="text-brand" />
-            </span>
-            <div>
-              <h3 class="font-semibold text-ink">{{ t(`services.items.${item.key}.title`) }}</h3>
-              <p class="mt-1 text-sm leading-relaxed text-muted">
-                {{ t(`services.items.${item.key}.desc`) }}
-              </p>
-            </div>
-          </LpCard>
+            <LpCard variant="raised" :interactive="true" class="flex h-full gap-4">
+              <span class="grid size-11 shrink-0 place-items-center rounded-control bg-brand-soft">
+                <LpIcon :name="item.icon" :size="20" class="text-brand" />
+              </span>
+              <div>
+                <h3 class="font-semibold text-ink">{{ t(`services.items.${item.key}.title`) }}</h3>
+                <p class="mt-1 text-sm leading-relaxed text-muted">
+                  {{ t(`services.items.${item.key}.desc`) }}
+                </p>
+              </div>
+            </LpCard>
+          </Reveal>
         </div>
       </section>
 
       <!-- CONTACT -->
       <section id="contact" class="section scroll-mt-20 py-16 sm:py-28">
+        <Reveal>
         <LpCard variant="raised" class="relative overflow-hidden">
-          <div
-            class="pointer-events-none absolute -right-24 -top-24 size-72 rounded-full bg-brand/10 blur-3xl"
-          />
           <div class="relative">
+            <div
+              class="pointer-events-none absolute -right-24 -top-24 size-72 rounded-full bg-brand/10 blur-3xl"
+            />
             <p class="eyebrow mb-3">{{ t("contact.eyebrow") }}</p>
             <h2 class="max-w-2xl text-3xl font-bold tracking-tight sm:text-4xl">
               {{ t("contact.title") }}
@@ -217,7 +240,7 @@ const emailHref = computed(() => contacts.find((c) => c.key === "email")?.href ?
 
             <div class="mt-8 flex flex-wrap gap-3">
               <a :href="emailHref">
-                <LpButton variant="action" size="lg">
+                <LpButton variant="solid" size="lg">
                   <LpIcon name="lucide:mail" :size="18" class="mr-2" />
                   {{ t("contact.cta") }}
                 </LpButton>
@@ -239,6 +262,7 @@ const emailHref = computed(() => contacts.find((c) => c.key === "email")?.href ?
             </div>
           </div>
         </LpCard>
+        </Reveal>
       </section>
     </main>
 

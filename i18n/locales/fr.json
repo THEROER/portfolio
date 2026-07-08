@@ -1,8 +1,8 @@
 {
   "seo": {
-    "title": "theroer — Ingénieur backend & full-stack · Python · Rust · TypeScript",
-    "description": "Ingénieur freelance backend & full-stack basé en France. Je conçois et livre des plateformes microservices en production en Python, Rust et TypeScript — d'une seule API typée à un maillage de 40 services.",
-    "ogTitle": "theroer — ingénieur backend & full-stack"
+    "title": "THEROER · Ingénieur backend & full-stack · Python · Rust · TypeScript",
+    "description": "Ingénieur freelance backend & full-stack basé en France. Je conçois et livre des plateformes microservices en production en Python, Rust et TypeScript, d'une seule API typée à un maillage de 40 services.",
+    "ogTitle": "THEROER · Ingénieur backend & full-stack"
   },
   "nav": {
     "work": "Projets",
@@ -14,7 +14,7 @@
   "hero": {
     "eyebrow": "Backend · Full-stack · Disponible en freelance",
     "title": "Je conçois et livre des plateformes microservices en production.",
-    "subtitle": "Ingénieur freelance basé en France. Python, Rust et TypeScript — d'une seule API typée à un maillage de 40 services avec temps réel, facturation et observabilité intégrés.",
+    "subtitle": "Ingénieur freelance basé en France. Python, Rust et TypeScript, d'une seule API typée à un maillage de 40 services avec temps réel, facturation et observabilité intégrés.",
     "ctaPrimary": "Démarrer un projet",
     "ctaSecondary": "Voir les projets",
     "available": "Disponible"
@@ -33,7 +33,7 @@
   "projects": {
     "leavepulse": {
       "tag": "Projet phare · Réalisé en solo",
-      "title": "LeavePulse — plateforme SaaS",
+      "title": "LeavePulse - plateforme SaaS",
       "summary": "Une plateforme d'environ 40 services réalisée seul : un BFF public typé au-dessus d'un maillage gRPC, une authentification hybride RBAC/JWT, deux passerelles websocket temps réel, une facturation avec webhooks de paiement, et de l'observabilité adossée à ClickHouse.",
       "points": [
         "BFF public typé (Litestar + msgspec) générant son propre OpenAPI au-dessus d'un maillage gRPC interne",
@@ -66,7 +66,7 @@
     },
     "magicutils": {
       "tag": "Bibliothèque publiée",
-      "title": "MagicUtils — toolkit Minecraft",
+      "title": "MagicUtils - toolkit Minecraft",
       "summary": "Une bibliothèque Java/Kotlin multiplateforme publiée (300+ fichiers source) avec son propre dépôt Maven et sa documentation. La base partagée sur laquelle d'autres plugins se construisent — dont l'agent LeavePulse.",
       "points": [
         "Un seul toolkit pour Bukkit/Paper, BungeeCord, Velocity, Fabric et NeoForge",
