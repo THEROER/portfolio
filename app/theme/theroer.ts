@@ -1,0 +1,41 @@
+import type { TokenSet } from "@leavepulse/ui"
+
+export const theroer: TokenSet = {
+  name: "Blue",
+  mode: "dark",
+  colors: {
+    surface: "#060716",
+    surfaceRaised: "#090a1d",
+    surfaceSoft: "#10122a",
+    ink: "#f4f4ff",
+    inkInverse: "#080916",
+    muted: "#a5a7c1",
+    mutedStrong: "#d5d6ea",
+    brand: "#7c9cff",
+    brandHover: "#9ab0ff",
+    brandSoft: "rgba(124, 156, 255, 0.16)",
+    action: "#71e0c4",
+    actionHover: "#94f0d7",
+    accent: "#b6a0ff",
+    danger: "#ff7b9c",
+    dangerHover: "#ff9bb4",
+    dangerSoft: "rgba(255, 123, 156, 0.16)",
+    line: "rgba(202, 210, 255, 0.16)",
+    lineStrong: "rgba(149, 172, 255, 0.38)",
+    ring: "rgba(124, 156, 255, 0.50)",
+  },
+  shape: { radiusControl: 8, radiusCard: 14, radiusPill: 9999 },
+  density: { spacingUnit: 4, controlSm: 32, controlMd: 38, controlLg: 44 },
+  font: {
+    sans: '"Instrument Sans", "Segoe UI", sans-serif',
+    mono: '"IBM Plex Mono", ui-monospace, monospace',
+  },
+  surface: {
+    borderWidth: "1px",
+    panelBlur: "14px",
+    panelSaturate: "115%",
+    panelOverlay: "linear-gradient(145deg, rgba(154, 176, 255, 0.055), rgba(11, 12, 30, 0.06))",
+    panelShadow: "0 18px 48px rgba(0, 0, 0, 0.25)",
+    panelInset: "inset 0 1px 0 rgba(229, 234, 255, 0.055)",
+  },
+}

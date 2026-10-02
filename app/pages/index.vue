@@ -1,8 +1,12 @@
 <script setup lang="ts">
-import { LpBadge, LpButton, LpCard, LpIcon, LpStat } from "@leavepulse/ui"
+import { LpButton, LpContextMenu, LpIcon, LpStat, useClipboard, type ContextMenuItemDef } from "@leavepulse/ui"
+import { NuxtLink } from "#components"
+import { projectDefinitions } from "~/data/projects"
 
-const { t, tm, rt } = useI18n()
+const { t } = useI18n()
 const { contacts, stack, stats } = useProfile()
+const { copy } = useClipboard()
+const activeTechnology = ref<string | null>(null)
 
 // Localized <head>: title/description per locale, plus lang attr, canonical
 // and hreflang alternates emitted by i18n's useLocaleHead.
@@ -49,31 +53,14 @@ useHead(() => ({
   ],
 }))
 
-// pull the project point arrays out of the message catalog
-function points(path: string): string[] {
-  const raw = tm(path) as unknown[]
-  return Array.isArray(raw) ? raw.map((p) => rt(p as never)) : []
-}
-
-// id + whether the card spans the full row; copy comes from the i18n catalog.
-const projectIds = [
-  { id: "leavepulse", accent: true },
-  { id: "sdkgen", accent: false },
-  { id: "toolkit", accent: false },
-  { id: "magicutils", accent: false },
-  { id: "agent", accent: false },
-  { id: "uikit", accent: false },
-  { id: "automation", accent: false },
-] as const
-
 const projects = computed(() =>
-  projectIds.map(({ id, accent }) => ({
+  projectDefinitions.map(({ id, accent, links }) => ({
     id,
     accent,
     tag: t(`projects.${id}.tag`),
     title: t(`projects.${id}.title`),
     summary: t(`projects.${id}.summary`),
-    points: points(`projects.${id}.points`),
+    links,
   })),
 )
 
@@ -85,12 +72,58 @@ const serviceItems = [
 ] as const
 
 const emailHref = computed(() => contacts.find((c) => c.key === "email")?.href ?? "#")
+const email = computed(() => emailHref.value.replace("mailto:", ""))
+const relatedProjects = computed(() => {
+  const technology = activeTechnology.value
+  if (!technology) return []
+  return projectDefinitions.filter((project) => project.technologies.some((item) => item === technology))
+})
+
+function toggleTechnology(technology: string) {
+  activeTechnology.value = activeTechnology.value === technology ? null : technology
+}
+
+function copyEmail() {
+  copy(email.value, { toast: t("contact.copied") })
+}
+
+function openContact(key: "telegram" | "github" | "linkedin") {
+  const contact = contacts.find((item) => item.key === key)
+  if (contact) window.open(contact.href, "_blank", "noopener,noreferrer")
+}
+
+const contactMenuItems = computed<ContextMenuItemDef[]>(() => [
+  {
+    label: t("contact.copyEmail"),
+    icon: "lucide:copy",
+    onSelect: copyEmail,
+  },
+  {
+    label: t("contact.openEmail"),
+    icon: "lucide:mail",
+    onSelect: () => (window.location.href = emailHref.value),
+  },
+  {
+    label: t("contact.openTelegram"),
+    icon: "lucide:send",
+    separatorBefore: true,
+    onSelect: () => openContact("telegram"),
+  },
+  {
+    label: t("contact.openGithub"),
+    icon: "lucide:github",
+    onSelect: () => openContact("github"),
+  },
+  {
+    label: t("contact.openLinkedin"),
+    icon: "lucide:linkedin",
+    onSelect: () => openContact("linkedin"),
+  },
+])
 </script>
 
 <template>
   <div>
-    <SiteHeader />
-
     <main>
       <!-- HERO -->
       <section class="section relative pt-20 pb-16 sm:pt-28 sm:pb-24">
@@ -107,16 +140,12 @@ const emailHref = computed(() => contacts.find((c) => c.key === "email")?.href ?
         </Reveal>
 
         <Reveal :delay="0.24" class="mt-9 flex flex-wrap items-center gap-3">
-          <a href="#contact">
-            <LpButton variant="solid" size="lg">
-              {{ t("hero.ctaPrimary") }}
-            </LpButton>
-          </a>
-          <a href="#work">
-            <LpButton variant="outline" size="lg">
-              {{ t("hero.ctaSecondary") }}
-            </LpButton>
-          </a>
+          <LpButton :as="NuxtLink" to="/#contact" variant="solid" size="lg">
+            {{ t("hero.ctaPrimary") }}
+          </LpButton>
+          <LpButton :as="NuxtLink" to="/#work" variant="outline" size="lg">
+            {{ t("hero.ctaSecondary") }}
+          </LpButton>
           <span class="ml-1 inline-flex items-center gap-2 text-sm text-muted">
             <span class="relative flex size-2">
               <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand opacity-75" />
@@ -156,11 +185,20 @@ const emailHref = computed(() => contacts.find((c) => c.key === "email")?.href ?
               :tag="p.tag"
               :title="p.title"
               :summary="p.summary"
-              :points="p.points"
+              :to="`/projects/${p.id}`"
+              :index="i + 1"
+              :links="p.links"
               :accent="p.accent"
             />
           </Reveal>
         </div>
+
+        <Reveal :delay="0.12" class="mt-7">
+          <NuxtLink to="/work" class="other-work-link">
+            {{ t("work.other") }}
+            <LpIcon name="lucide:arrow-right" :size="16" />
+          </NuxtLink>
+        </Reveal>
       </section>
 
       <!-- STACK -->
@@ -177,21 +215,47 @@ const emailHref = computed(() => contacts.find((c) => c.key === "email")?.href ?
             :delay="(i % 4) * 0.06"
             class="h-full"
           >
-            <LpCard variant="flat" class="h-full">
+            <div class="stack-group h-full">
               <h3 class="mb-4 font-mono text-xs uppercase tracking-widest text-brand">
                 {{ t(`stackSection.groups.${group.key}`) }}
               </h3>
-              <ul class="flex flex-wrap gap-2">
-                <li
-                  v-for="item in group.items"
-                  :key="item"
-                  class="rounded-control border border-line bg-surface px-2.5 py-1 text-sm text-muted-strong"
-                >
-                  {{ item }}
+              <ul class="stack-group__items">
+                <li v-for="item in group.items" :key="item">
+                  <button
+                    type="button"
+                    class="stack-group__item"
+                    :class="{ 'stack-group__item--active': activeTechnology === item }"
+                    :aria-pressed="activeTechnology === item"
+                    @click="toggleTechnology(item)"
+                  >
+                    {{ item }}
+                  </button>
                 </li>
               </ul>
-            </LpCard>
+            </div>
           </Reveal>
+        </div>
+
+        <div v-if="activeTechnology" class="stack-connections mt-8">
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <p class="text-sm text-muted">
+              {{ t("stackSection.usedIn", { technology: activeTechnology }) }}
+            </p>
+            <button type="button" class="stack-connections__clear" @click="activeTechnology = null">
+              {{ t("stackSection.clear") }}
+            </button>
+          </div>
+          <div class="mt-4 flex flex-wrap gap-2">
+            <NuxtLink
+              v-for="project in relatedProjects"
+              :key="project.id"
+              :to="`/projects/${project.id}`"
+              class="stack-connections__project"
+            >
+              {{ t(`projects.${project.id}.title`) }}
+              <LpIcon name="lucide:arrow-up-right" :size="14" />
+            </NuxtLink>
+          </div>
         </div>
       </section>
 
@@ -202,24 +266,23 @@ const emailHref = computed(() => contacts.find((c) => c.key === "email")?.href ?
           {{ t("services.title") }}
         </Reveal>
 
-        <div class="mt-10 grid gap-4 sm:grid-cols-2">
+        <div class="services-list mt-10">
           <Reveal
             v-for="(item, i) in serviceItems"
             :key="item.key"
             :delay="(i % 2) * 0.08"
             class="h-full"
           >
-            <LpCard variant="raised" :interactive="true" class="flex h-full gap-4">
-              <span class="grid size-11 shrink-0 place-items-center rounded-control bg-brand-soft">
-                <LpIcon :name="item.icon" :size="20" class="text-brand" />
-              </span>
+            <article class="service-row">
+              <span class="service-row__number">0{{ i + 1 }}</span>
+              <LpIcon :name="item.icon" :size="19" class="service-row__icon" />
               <div>
                 <h3 class="font-semibold text-ink">{{ t(`services.items.${item.key}.title`) }}</h3>
                 <p class="mt-1 text-sm leading-relaxed text-muted">
                   {{ t(`services.items.${item.key}.desc`) }}
                 </p>
               </div>
-            </LpCard>
+            </article>
           </Reveal>
         </div>
       </section>
@@ -227,41 +290,42 @@ const emailHref = computed(() => contacts.find((c) => c.key === "email")?.href ?
       <!-- CONTACT -->
       <section id="contact" class="section scroll-mt-20 py-16 sm:py-28">
         <Reveal>
-        <LpCard variant="raised" class="relative overflow-hidden">
-          <div class="relative">
-            <div
-              class="pointer-events-none absolute -right-24 -top-24 size-72 rounded-full bg-brand/10 blur-3xl"
-            />
-            <p class="eyebrow mb-3">{{ t("contact.eyebrow") }}</p>
-            <h2 class="max-w-2xl text-3xl font-bold tracking-tight sm:text-4xl">
-              {{ t("contact.title") }}
-            </h2>
-            <p class="mt-3 max-w-xl text-muted">{{ t("contact.subtitle") }}</p>
+          <LpContextMenu :items="contactMenuItems">
+            <div class="contact-section">
+              <div>
+                <p class="eyebrow mb-3">{{ t("contact.eyebrow") }}</p>
+                <h2 class="max-w-2xl text-3xl font-bold tracking-tight sm:text-4xl">
+                  {{ t("contact.title") }}
+                </h2>
+                <p class="mt-3 max-w-xl text-muted">{{ t("contact.subtitle") }}</p>
+              </div>
 
-            <div class="mt-8 flex flex-wrap gap-3">
-              <a :href="emailHref">
-                <LpButton variant="solid" size="lg">
-                  <LpIcon name="lucide:mail" :size="18" class="mr-2" />
-                  {{ t("contact.cta") }}
-                </LpButton>
-              </a>
-            </div>
+              <div class="contact-section__actions">
+                <div class="flex flex-wrap gap-3">
+                  <a :href="emailHref">
+                    <LpButton variant="solid" size="lg">
+                      <LpIcon name="lucide:mail" :size="18" class="mr-2" />
+                      {{ t("contact.cta") }}
+                    </LpButton>
+                  </a>
+                </div>
 
-            <div class="mt-8 flex flex-wrap gap-x-6 gap-y-3">
-              <a
-                v-for="c in contacts"
-                :key="c.key"
-                :href="c.href"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-flex items-center gap-2 text-sm text-muted transition-colors hover:text-brand"
-              >
-                <LpIcon :name="c.icon" :size="16" />
-                {{ c.label }}
-              </a>
+                <div class="contact-section__links">
+                  <a
+                    v-for="c in contacts"
+                    :key="c.key"
+                    :href="c.href"
+                    :target="c.href.startsWith('mailto:') ? undefined : '_blank'"
+                    :rel="c.href.startsWith('mailto:') ? undefined : 'noopener noreferrer'"
+                    class="inline-flex items-center gap-2 text-sm text-muted transition-colors hover:text-brand"
+                  >
+                    <LpIcon :name="c.icon" :size="16" />
+                    {{ c.label }}
+                  </a>
+                </div>
+              </div>
             </div>
-          </div>
-        </LpCard>
+          </LpContextMenu>
         </Reveal>
       </section>
     </main>

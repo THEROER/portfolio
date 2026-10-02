@@ -11,6 +11,44 @@
     "contact": "Contact",
     "hire": "Hire me"
   },
+  "theme": {
+    "switch": "Change theme"
+  },
+  "error": {
+    "eyebrow": "404 · Route not found",
+    "title": "This route does not exist.",
+    "description": "The page may have moved, or the address is simply not part of this portfolio.",
+    "genericEyebrow": "Unexpected error",
+    "genericTitle": "Something interrupted the request.",
+    "genericDescription": "Try returning to the portfolio. If it happens again, contact me directly.",
+    "home": "Back to home",
+    "work": "Browse work",
+    "hint": "THEROER · theroer.dev"
+  },
+  "commands": {
+    "open": "Search",
+    "placeholder": "Search projects or jump to a section…",
+    "empty": "No matching commands",
+    "navigate": "Navigate",
+    "projects": "Projects",
+    "contactGroup": "Contact",
+    "work": "Browse selected projects",
+    "stack": "See the technical stack",
+    "services": "See ways to work together",
+    "contact": "Get in touch"
+  },
+  "shortcuts": {
+    "title": "Keyboard shortcuts",
+    "description": "Quick ways to move around the portfolio.",
+    "navigation": "Navigation",
+    "commandPalette": "Open command palette",
+    "reference": "Open this reference",
+    "navigate": "navigate",
+    "select": "select",
+    "close": "close",
+    "back": "back",
+    "searching": "Searching…"
+  },
   "hero": {
     "eyebrow": "Backend · Full-stack · Available for freelance",
     "title": "I design and ship production microservice platforms.",
@@ -28,7 +66,51 @@
   "work": {
     "eyebrow": "Selected work",
     "title": "What I build",
-    "subtitle": "A look at the kind of systems I take responsibility for end to end."
+    "subtitle": "A look at the kind of systems I take responsibility for end to end.",
+    "other": "Explore other work"
+  },
+  "otherWork": {
+    "eyebrow": "Other work",
+    "title": "More systems, tools and experiments",
+    "subtitle": "A curated set of smaller products and supporting work. Each solved a real operational or developer-experience problem.",
+    "openSource": "Open source code",
+    "viewSource": "View source code",
+    "copyLink": "Copy link",
+    "contact": "Discuss this work",
+    "detailsLabel": "What is inside",
+    "items": {
+      "leavehosting": { "tag": "Hosting platform", "title": "LeaveHosting", "summary": "A product plane for hosting: typed public BFF, DCIM inventory, network record plane and catalog configurators. The site is being prepared for a separate redesign." },
+      "automation": { "tag": "Automation", "title": "Bots, scrapers and integrations", "summary": "Async services that remove repetitive work through Discord and Telegram bots, webhooks, scheduled jobs and third-party APIs." },
+      "commandflow": { "tag": "Open source", "title": "CommandFlow", "summary": "A cross-platform Minecraft command-alias plugin with shortcuts and templated arguments, built on MagicUtils." },
+      "doublelife": { "tag": "Operations", "title": "DoubleLife", "summary": "Time-boxed elevated staff sessions with LuckPerms integration, visible countdowns and Discord webhooks." },
+      "invisibleframes": { "tag": "Open source", "title": "InvisibleFrames", "summary": "A Bukkit, Paper and Folia plugin for toggling item-frame visibility and protecting frames from breaking." },
+      "msgspecconf": { "tag": "Python library", "title": "msgspec-conf", "summary": "A typed settings loader for environment variables, .env, YAML and TOML, built as a lightweight alternative to pydantic-settings." }
+    },
+    "details": {
+      "leavehosting": ["Typed public BFF over service boundaries", "DCIM, catalog and network record planes"],
+      "automation": ["Async jobs, webhooks and external APIs", "Discord and Telegram operational interfaces"],
+      "commandflow": ["Aliases, shortcuts and templated arguments", "Built on the MagicUtils foundation"],
+      "doublelife": ["Temporary elevated permissions with a visible countdown", "LuckPerms and Discord webhook integration"],
+      "invisibleframes": ["Targets Bukkit, Paper and Folia", "Visibility toggles and frame protection"],
+      "msgspecconf": ["Typed configuration through msgspec", "Environment, .env, YAML and TOML sources"]
+    }
+  },
+  "projectPage": {
+    "back": "Back to selected work",
+    "notes": "Architecture notes",
+    "stack": "Stack",
+    "links": {
+      "source": "Source code",
+      "docs": "Documentation",
+      "package": "Package"
+    }
+  },
+  "projectCard": {
+    "open": "Open case study",
+    "openNew": "Open in new tab",
+    "copyLink": "Copy link",
+    "links": "Project links",
+    "view": "View case study"
   },
   "projects": {
     "leavepulse": {
@@ -38,36 +120,50 @@
       "points": [
         "Typed public BFF (Litestar + msgspec) generating its own OpenAPI over an internal gRPC mesh",
         "Auth: hybrid RBAC + JWT/JWKS, Argon2id with peppering, Snowflake IDs, short-lived websocket handshake tokens",
+        "Auth service also owns token exchange, JWT introspection, JWKS distribution and audience-scoped WebSocket credentials for high-risk paths",
         "Two realtime gateways (client + agent) with a Discord-style handshake and NATS JetStream fan-out",
+        "Fleet/control separates desired releases from observed host state, with pinned internal gRPC contracts and an enrolled Rust control agent",
         "Billing with merchant-API integration, webhooks, subscriptions and event-driven order lifecycle",
         "Cross-platform desktop launcher in Rust + Tauri 2 + Vue 3, with an xtask monorepo and Android target",
-        "SDK-first: a public contract package with generated SDKs in Python, TypeScript and Rust"
+        "SDK-first: a public contract package with generated SDKs in Python, TypeScript and Rust",
+        "Designed a LeaveHosting overlay network around stable participant addresses, WireGuard and BGP routing; implementation is staged after the control and billing planes"
+      ]
+    },
+    "cursio": {
+      "tag": "Rust · Personal-device mesh",
+      "title": "Cursio - one workspace across machines",
+      "summary": "A LAN-only mesh for trusted personal devices. Input, audio, clipboard, windows, files and USB travel through one encrypted channel, while applications stay on their original host.",
+      "points": [
+        "No hub or server: every peer both listens and reconnects, so one machine going offline does not interrupt the rest of the mesh",
+        "SPAKE2 pairing establishes trust without sending the password; later traffic rides a Noise-encrypted link with separate control, input, audio, video and bulk priorities",
+        "Cross-platform modules cover shared input, per-application audio, clipboard formats and images, remote windows, disk mounts, USB/IP and an AirPlay receiver",
+        "Signed mesh-distributed updates install side by side and roll back if the new build does not start"
       ]
     },
     "sdkgen": {
       "tag": "Platform engineering",
       "title": "Multi-language SDK generator",
-      "summary": "A contract-first toolchain (in Rust) that reads the platform's OpenAPI specs and realtime manifest, builds an intermediate representation, and emits a typed, resource-object SDK for TypeScript, Python and Rust at once — plus a reference of the object graph.",
+      "summary": "A contract-first toolchain (in Rust) that reads the platform's OpenAPI specs and realtime manifest, builds an intermediate representation, and emits a typed, resource-object SDK for TypeScript, Python and Rust at once - plus a reference of the object graph.",
       "points": [
         "parser → IR → emitters: one source of truth, three idiomatic client libraries",
-        "Fully automated pipeline (cargo xtask): snapshot, regenerate, publish to per-language repos — idempotent and offline",
+        "Fully automated pipeline (cargo xtask): snapshot, regenerate, publish to per-language repos - idempotent and offline",
         "Five auth methods (device flow, PATs, OAuth2 + PKCE, service tokens, cookie login) and a Nuxt transport with SSR cookies, CSRF and refresh-on-401"
       ]
     },
     "toolkit": {
       "tag": "Open-source library",
       "title": "Service infrastructure toolkit",
-      "summary": "A public, reusable Python library that every backend service in the platform is built on — the shared layer for observability, gRPC, resilience and caching, so each service ships production-grade plumbing for free.",
+      "summary": "A public, reusable Python library that every backend service in the platform is built on - the shared layer for observability, gRPC, resilience and caching, so each service ships production-grade plumbing for free.",
       "points": [
         "Observability: Prometheus instrumentation, structured request-scoped logging, SQLAlchemy slow-query logging, OpenTelemetry tracing with OTLP auto-instrumentation",
         "gRPC helpers (shared channels, metrics/JWT/internal-token interceptors, error translation), Redis rate limiting and a TTL cache with in-flight dedup and Redis fallback",
-        "Packaged with optional extras and CLI code generators — a real internal platform tool, not glue code"
+        "Packaged with optional extras and CLI code generators - a real internal platform tool, not glue code"
       ]
     },
     "magicutils": {
       "tag": "Published library",
       "title": "MagicUtils - Minecraft toolkit",
-      "summary": "A published, multi-platform Java/Kotlin library (300+ source files) with its own Maven repository and docs. The shared foundation other plugins build on — including the LeavePulse agent.",
+      "summary": "A published, multi-platform Java/Kotlin library (300+ source files) with its own Maven repository and docs. The shared foundation other plugins build on - including the LeavePulse agent.",
       "points": [
         "One toolkit across Bukkit/Paper, BungeeCord, Velocity, Fabric and NeoForge",
         "Modular: config (YAML/TOML), commands (incl. Brigadier), localisation, HTTP clients, placeholders, logging",
@@ -89,7 +185,7 @@
       "title": "Token-driven Vue UI kit",
       "summary": "The component library this very site is built on: ~40 accessible Vue components, a runtime theme engine that re-skins everything from a JSON token set, built on Tailwind v4, reka-ui and motion-v.",
       "points": [
-        "Runtime theming — themes are plain JSON, applied live to CSS variables",
+        "Runtime theming - themes are plain JSON, applied live to CSS variables",
         "Accessible primitives on reka-ui with tailwind-variants for typed styling",
         "Shipped as a versioned, tree-shakeable ESM package with generated types"
       ]
@@ -97,7 +193,7 @@
     "automation": {
       "tag": "Bots & automation",
       "title": "Bots, scrapers & integrations",
-      "summary": "Telegram and Discord bots, scraping pipelines and service integrations — the fast, high-leverage work that automates a real process and pays for itself quickly.",
+      "summary": "Telegram and Discord bots, scraping pipelines and service integrations - the fast, high-leverage work that automates a real process and pays for itself quickly.",
       "points": [
         "Async Python services and bots with clean deploy stories",
         "Third-party API integrations and webhook processing",
@@ -108,6 +204,8 @@
   "stackSection": {
     "eyebrow": "Stack",
     "title": "Tools I reach for",
+    "usedIn": "{technology} in selected work",
+    "clear": "Clear selection",
     "groups": {
       "backend": "Backend",
       "frontend": "Frontend",
@@ -121,7 +219,7 @@
     "items": {
       "backend": {
         "title": "Backend & APIs",
-        "desc": "FastAPI / Litestar services, gRPC meshes, auth, billing — designed to run in production, not just demos."
+        "desc": "FastAPI / Litestar services, gRPC meshes, auth, billing - designed to run in production, not just demos."
       },
       "automation": {
         "title": "Bots & automation",
@@ -133,7 +231,7 @@
       },
       "rescue": {
         "title": "Rescue & review",
-        "desc": "Audit, debug or finish an existing codebase — Python, Rust or TypeScript."
+        "desc": "Audit, debug or finish an existing codebase - Python, Rust or TypeScript."
       }
     }
   },
@@ -145,10 +243,16 @@
     "telegram": "Telegram",
     "github": "GitHub",
     "linkedin": "LinkedIn",
-    "cta": "Email me"
+    "cta": "Email me",
+    "copyEmail": "Copy email address",
+    "copied": "Email address copied",
+    "openEmail": "Open email client",
+    "openTelegram": "Open Telegram",
+    "openGithub": "Open GitHub",
+    "openLinkedin": "Open LinkedIn"
   },
   "footer": {
-    "built": "Built with Nuxt and the LeavePulse UI kit — lime theme.",
+    "built": "Built with Nuxt and the LeavePulse UI kit - custom dark theme.",
     "location": "Freelance engineer · France"
   }
 }

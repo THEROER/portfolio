@@ -1,40 +1,91 @@
 <script setup lang="ts">
-import { LpBadge, LpCard, LpIcon } from "@leavepulse/ui"
+import { LpCard, LpIcon, type ContextMenuItemDef } from "@leavepulse/ui"
+import type { ProjectLink } from "~/data/projects"
 
-defineProps<{
+const props = defineProps<{
   tag: string
   title: string
   summary: string
-  points: string[]
+  to: string
+  index: number
+  links: readonly ProjectLink[]
   accent?: boolean
 }>()
+
+const { t } = useI18n()
+
+function openProject() {
+  navigateTo(props.to)
+}
+
+function openProjectInNewTab() {
+  window.open(props.to, "_blank", "noopener,noreferrer")
+}
+
+function copyProjectLink() {
+  navigator.clipboard?.writeText(new URL(props.to, window.location.origin).href)
+}
+
+function openExternalLink(link: ProjectLink) {
+  window.open(link.href, "_blank", "noopener,noreferrer")
+}
+
+const menuItems = computed<ContextMenuItemDef[]>(() => [
+  { label: t("projectCard.open"), icon: "lucide:arrow-right", onSelect: openProject },
+  {
+    label: t("projectCard.openNew"),
+    icon: "lucide:external-link",
+    onSelect: openProjectInNewTab,
+  },
+  {
+    label: t("projectCard.copyLink"),
+    icon: "lucide:copy",
+    separatorBefore: true,
+    onSelect: copyProjectLink,
+  },
+  ...(props.links.length
+    ? [
+        {
+          label: t("projectCard.links"),
+          icon: "lucide:link-2",
+          separatorBefore: true,
+          children: props.links.map((link) => ({
+            label: t(`projectPage.links.${link.kind}`),
+            icon: "lucide:arrow-up-right",
+            onSelect: () => openExternalLink(link),
+          })),
+        },
+      ]
+    : []),
+])
 </script>
 
 <template>
-  <LpCard
-    variant="raised"
-    :interactive="true"
-    class="flex h-full flex-col gap-5"
-    :class="accent ? 'ring-1 ring-brand/30' : ''"
-  >
-    <div class="flex items-center justify-between gap-3">
-      <LpBadge :tone="accent ? 'brand' : 'neutral'" :dot="true">{{ tag }}</LpBadge>
-    </div>
+  <NuxtLink :to="props.to" class="block h-full">
+    <LpCard
+      variant="flat"
+      :padded="false"
+      interactive
+      :menu-items="menuItems"
+      class="project-card"
+      :class="{ 'project-card--featured': props.accent }"
+    >
+      <div class="project-card__meta">
+        <span>{{ props.tag }}</span>
+        <span>0{{ props.index }}</span>
+      </div>
 
-    <div class="space-y-2">
-      <h3 class="text-xl font-semibold tracking-tight text-ink">{{ title }}</h3>
-      <p class="text-sm leading-relaxed text-muted">{{ summary }}</p>
-    </div>
+      <div class="project-card__content">
+        <h3 class="text-xl font-semibold tracking-tight text-ink">{{ props.title }}</h3>
+        <p class="mt-3 text-sm leading-relaxed text-muted">{{ props.summary }}</p>
+      </div>
 
-    <ul class="mt-auto space-y-2">
-      <li
-        v-for="(point, i) in points"
-        :key="i"
-        class="flex gap-2.5 text-sm leading-relaxed text-muted-strong"
-      >
-        <LpIcon name="lucide:check" :size="16" class="mt-0.5 shrink-0 text-brand" />
-        <span>{{ point }}</span>
-      </li>
-    </ul>
-  </LpCard>
+      <div class="project-card__footer">
+        <span class="project-card__link">
+          {{ t("projectCard.view") }}
+          <LpIcon name="lucide:arrow-up-right" :size="16" />
+        </span>
+      </div>
+    </LpCard>
+  </NuxtLink>
 </template>

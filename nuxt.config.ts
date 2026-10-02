@@ -44,7 +44,7 @@ export default defineNuxtConfig({
         { property: "og:image", content: "https://theroer.dev/og.png" },
         { name: "twitter:image", content: "https://theroer.dev/og.png" },
         { name: "twitter:card", content: "summary_large_image" },
-        { name: "theme-color", content: "#050505" },
+        { name: "theme-color", content: "#060716" },
       ],
       link: [
         {
@@ -58,7 +58,7 @@ export default defineNuxtConfig({
         },
         {
           rel: "stylesheet",
-          href: "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap",
+          href: "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Instrument+Sans:wdth,wght@75..100,400..700&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap",
         },
       ],
     },

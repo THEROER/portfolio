@@ -11,6 +11,44 @@
     "contact": "Contact",
     "hire": "Me contacter"
   },
+  "theme": {
+    "switch": "Changer de thème"
+  },
+  "error": {
+    "eyebrow": "404 · Route introuvable",
+    "title": "Cette route n'existe pas.",
+    "description": "La page a peut-être changé d'adresse, ou elle ne fait simplement pas partie de ce portfolio.",
+    "genericEyebrow": "Erreur inattendue",
+    "genericTitle": "La requête a été interrompue.",
+    "genericDescription": "Essayez de revenir au portfolio. Si cela se reproduit, contactez-moi directement.",
+    "home": "Retour à l'accueil",
+    "work": "Voir les projets",
+    "hint": "THEROER · theroer.dev"
+  },
+  "commands": {
+    "open": "Rechercher",
+    "placeholder": "Rechercher un projet ou accéder à une section…",
+    "empty": "Aucune commande correspondante",
+    "navigate": "Navigation",
+    "projects": "Projets",
+    "contactGroup": "Contact",
+    "work": "Parcourir les projets sélectionnés",
+    "stack": "Voir la stack technique",
+    "services": "Voir les façons de travailler ensemble",
+    "contact": "Prendre contact"
+  },
+  "shortcuts": {
+    "title": "Raccourcis clavier",
+    "description": "Des accès rapides pour naviguer dans le portfolio.",
+    "navigation": "Navigation",
+    "commandPalette": "Ouvrir la palette de commandes",
+    "reference": "Ouvrir cette référence",
+    "navigate": "naviguer",
+    "select": "sélectionner",
+    "close": "fermer",
+    "back": "retour",
+    "searching": "Recherche…"
+  },
   "hero": {
     "eyebrow": "Backend · Full-stack · Disponible en freelance",
     "title": "Je conçois et livre des plateformes microservices en production.",
@@ -28,7 +66,51 @@
   "work": {
     "eyebrow": "Projets sélectionnés",
     "title": "Ce que je construis",
-    "subtitle": "Un aperçu du type de systèmes dont je prends la responsabilité de bout en bout."
+    "subtitle": "Un aperçu du type de systèmes dont je prends la responsabilité de bout en bout.",
+    "other": "Explorer d'autres projets"
+  },
+  "otherWork": {
+    "eyebrow": "Autres projets",
+    "title": "Plus de systèmes, d'outils et d'expérimentations",
+    "subtitle": "Une sélection de produits plus ciblés et de travaux de support. Chacun répond à un vrai besoin opérationnel ou d'expérience développeur.",
+    "openSource": "Ouvrir le code source",
+    "viewSource": "Voir le code source",
+    "copyLink": "Copier le lien",
+    "contact": "Discuter de ce travail",
+    "detailsLabel": "Ce qu'il y a dedans",
+    "items": {
+      "leavehosting": { "tag": "Plateforme d'hébergement", "title": "LeaveHosting", "summary": "Un plan produit pour l'hébergement : BFF public typé, inventaire DCIM, registre réseau et configurateurs de catalogue. Le site sera repensé séparément." },
+      "automation": { "tag": "Automatisation", "title": "Bots, scrapers et intégrations", "summary": "Des services asynchrones qui retirent les tâches répétitives via bots Discord et Telegram, webhooks, tâches planifiées et API tierces." },
+      "commandflow": { "tag": "Open source", "title": "CommandFlow", "summary": "Un plugin Minecraft multiplateforme d'alias de commandes avec raccourcis et arguments templatisés, construit sur MagicUtils." },
+      "doublelife": { "tag": "Opérations", "title": "DoubleLife", "summary": "Des sessions staff à privilèges élevés et limitées dans le temps, avec LuckPerms, compte à rebours visible et webhooks Discord." },
+      "invisibleframes": { "tag": "Open source", "title": "InvisibleFrames", "summary": "Un plugin Bukkit, Paper et Folia pour masquer les item frames et les protéger contre la casse." },
+      "msgspecconf": { "tag": "Bibliothèque Python", "title": "msgspec-conf", "summary": "Un chargeur de paramètres typés pour variables d'environnement, .env, YAML et TOML, comme alternative légère à pydantic-settings." }
+    },
+    "details": {
+      "leavehosting": ["BFF public typé au-dessus de frontières de services", "Plans DCIM, catalogue et registres réseau"],
+      "automation": ["Jobs asynchrones, webhooks et API externes", "Interfaces opérationnelles Discord et Telegram"],
+      "commandflow": ["Alias, raccourcis et arguments templatisés", "Construit sur la fondation MagicUtils"],
+      "doublelife": ["Permissions élevées temporaires avec compte à rebours", "Intégration LuckPerms et webhooks Discord"],
+      "invisibleframes": ["Cible Bukkit, Paper et Folia", "Bascules de visibilité et protection des frames"],
+      "msgspecconf": ["Configuration typée avec msgspec", "Sources environment, .env, YAML et TOML"]
+    }
+  },
+  "projectPage": {
+    "back": "Retour aux projets sélectionnés",
+    "notes": "Notes d'architecture",
+    "stack": "Stack",
+    "links": {
+      "source": "Code source",
+      "docs": "Documentation",
+      "package": "Paquet"
+    }
+  },
+  "projectCard": {
+    "open": "Ouvrir l'étude de cas",
+    "openNew": "Ouvrir dans un nouvel onglet",
+    "copyLink": "Copier le lien",
+    "links": "Liens du projet",
+    "view": "Voir l'étude de cas"
   },
   "projects": {
     "leavepulse": {
@@ -38,36 +120,50 @@
       "points": [
         "BFF public typé (Litestar + msgspec) générant son propre OpenAPI au-dessus d'un maillage gRPC interne",
         "Auth : RBAC + JWT/JWKS hybride, Argon2id avec pepper, identifiants Snowflake, jetons de handshake websocket éphémères",
+        "Le service d'auth gère aussi l'échange de jetons, l'introspection JWT, la distribution JWKS et des identifiants WebSocket restreints par audience",
         "Deux passerelles temps réel (client + agent) avec handshake façon Discord et diffusion via NATS JetStream",
+        "Le plan fleet/control sépare les releases souhaitées de l'état observé des hôtes, avec des contrats gRPC internes pinés et un agent Rust enrôlé",
         "Facturation avec intégration d'API marchande, webhooks, abonnements et cycle de vie événementiel des commandes",
         "Launcher desktop multiplateforme en Rust + Tauri 2 + Vue 3, monorepo xtask et cible Android",
-        "Approche SDK-first : un paquet de contrat public avec des SDK générés en Python, TypeScript et Rust"
+        "Approche SDK-first : un paquet de contrat public avec des SDK générés en Python, TypeScript et Rust",
+        "Architecture d'un overlay LeaveHosting autour d'adresses stables, WireGuard et routage BGP ; l'implémentation est planifiée après control et billing"
+      ]
+    },
+    "cursio": {
+      "tag": "Rust · Mesh d'appareils personnels",
+      "title": "Cursio - un espace de travail sur plusieurs machines",
+      "summary": "Un mesh LAN pour des appareils personnels de confiance. Entrées, audio, presse-papiers, fenêtres, fichiers et USB passent par un canal chiffré, tandis que les applications restent sur leur hôte d'origine.",
+      "points": [
+        "Sans hub ni serveur : chaque pair écoute et se reconnecte, donc une machine hors ligne n'interrompt pas le reste du mesh",
+        "Le pairing SPAKE2 établit la confiance sans transmettre le mot de passe ; le trafic passe ensuite par un lien chiffré Noise avec des priorités distinctes",
+        "Les modules multiplateformes couvrent les entrées partagées, l'audio par application, le presse-papiers, les fenêtres distantes, les volumes, USB/IP et AirPlay",
+        "Les mises à jour signées distribuées dans le mesh s'installent côte à côte et reviennent en arrière si la nouvelle build ne démarre pas"
       ]
     },
     "sdkgen": {
       "tag": "Platform engineering",
       "title": "Générateur de SDK multi-langage",
-      "summary": "Une chaîne d'outils contract-first (en Rust) qui lit les specs OpenAPI de la plateforme et le manifeste temps réel, construit une représentation intermédiaire, et émet un SDK typé orienté ressources pour TypeScript, Python et Rust à la fois — plus une référence du graphe d'objets.",
+      "summary": "Une chaîne d'outils contract-first (en Rust) qui lit les specs OpenAPI de la plateforme et le manifeste temps réel, construit une représentation intermédiaire, et émet un SDK typé orienté ressources pour TypeScript, Python et Rust à la fois - plus une référence du graphe d'objets.",
       "points": [
         "parser → IR → émetteurs : une seule source de vérité, trois bibliothèques clientes idiomatiques",
-        "Pipeline entièrement automatisé (cargo xtask) : snapshot, régénération, publication vers des dépôts par langage — idempotent et hors-ligne",
+        "Pipeline entièrement automatisé (cargo xtask) : snapshot, régénération, publication vers des dépôts par langage - idempotent et hors-ligne",
         "Cinq méthodes d'auth (device flow, PAT, OAuth2 + PKCE, service tokens, cookie login) et un transport Nuxt avec cookies SSR, CSRF et refresh-on-401"
       ]
     },
     "toolkit": {
       "tag": "Bibliothèque open-source",
       "title": "Toolkit d'infrastructure de services",
-      "summary": "Une bibliothèque Python publique et réutilisable sur laquelle repose chaque service backend de la plateforme — la couche partagée pour l'observabilité, gRPC, la résilience et le cache, pour que chaque service embarque gratuitement une plomberie de niveau production.",
+      "summary": "Une bibliothèque Python publique et réutilisable sur laquelle repose chaque service backend de la plateforme - la couche partagée pour l'observabilité, gRPC, la résilience et le cache, pour que chaque service embarque gratuitement une plomberie de niveau production.",
       "points": [
         "Observabilité : instrumentation Prometheus, logs structurés à portée de requête, log des requêtes SQL lentes, tracing OpenTelemetry avec auto-instrumentation OTLP",
         "Helpers gRPC (canaux partagés, intercepteurs métriques/JWT/internal-token, traduction d'erreurs), rate limiting Redis et un cache TTL avec déduplication in-flight et fallback Redis",
-        "Packagé avec des extras optionnels et des générateurs de code CLI — un vrai outil de plateforme interne, pas du code de colle"
+        "Packagé avec des extras optionnels et des générateurs de code CLI - un vrai outil de plateforme interne, pas du code de colle"
       ]
     },
     "magicutils": {
       "tag": "Bibliothèque publiée",
       "title": "MagicUtils - toolkit Minecraft",
-      "summary": "Une bibliothèque Java/Kotlin multiplateforme publiée (300+ fichiers source) avec son propre dépôt Maven et sa documentation. La base partagée sur laquelle d'autres plugins se construisent — dont l'agent LeavePulse.",
+      "summary": "Une bibliothèque Java/Kotlin multiplateforme publiée (300+ fichiers source) avec son propre dépôt Maven et sa documentation. La base partagée sur laquelle d'autres plugins se construisent - dont l'agent LeavePulse.",
       "points": [
         "Un seul toolkit pour Bukkit/Paper, BungeeCord, Velocity, Fabric et NeoForge",
         "Modulaire : config (YAML/TOML), commandes (dont Brigadier), localisation, clients HTTP, placeholders, logging",
@@ -89,7 +185,7 @@
       "title": "Kit UI Vue piloté par tokens",
       "summary": "La bibliothèque de composants qui fait tourner ce site : ~40 composants Vue accessibles, un moteur de thème runtime qui re-skine tout depuis un jeu de tokens JSON, sur Tailwind v4, reka-ui et motion-v.",
       "points": [
-        "Theming runtime — les thèmes sont du JSON, appliqués en direct via des variables CSS",
+        "Theming runtime - les thèmes sont du JSON, appliqués en direct via des variables CSS",
         "Primitives accessibles sur reka-ui avec tailwind-variants pour un style typé",
         "Livré comme paquet ESM versionné, tree-shakeable, avec types générés"
       ]
@@ -97,7 +193,7 @@
     "automation": {
       "tag": "Bots & automatisation",
       "title": "Bots, scrapers & intégrations",
-      "summary": "Bots Telegram et Discord, pipelines de scraping et intégrations de services — le travail rapide et à fort levier qui automatise un vrai processus et se rentabilise vite.",
+      "summary": "Bots Telegram et Discord, pipelines de scraping et intégrations de services - le travail rapide et à fort levier qui automatise un vrai processus et se rentabilise vite.",
       "points": [
         "Services et bots Python asynchrones avec un déploiement propre",
         "Intégrations d'API tierces et traitement de webhooks",
@@ -108,6 +204,8 @@
   "stackSection": {
     "eyebrow": "Stack",
     "title": "Mes outils de prédilection",
+    "usedIn": "{technology} dans les projets sélectionnés",
+    "clear": "Effacer la sélection",
     "groups": {
       "backend": "Backend",
       "frontend": "Frontend",
@@ -121,7 +219,7 @@
     "items": {
       "backend": {
         "title": "Backend & API",
-        "desc": "Services FastAPI / Litestar, maillages gRPC, auth, facturation — conçus pour la production, pas pour la démo."
+        "desc": "Services FastAPI / Litestar, maillages gRPC, auth, facturation - conçus pour la production, pas pour la démo."
       },
       "automation": {
         "title": "Bots & automatisation",
@@ -133,7 +231,7 @@
       },
       "rescue": {
         "title": "Reprise & revue",
-        "desc": "Auditer, déboguer ou finir une base de code existante — Python, Rust ou TypeScript."
+        "desc": "Auditer, déboguer ou finir une base de code existante - Python, Rust ou TypeScript."
       }
     }
   },
@@ -145,10 +243,16 @@
     "telegram": "Telegram",
     "github": "GitHub",
     "linkedin": "LinkedIn",
-    "cta": "M'écrire"
+    "cta": "M'écrire",
+    "copyEmail": "Copier l'adresse e-mail",
+    "copied": "Adresse e-mail copiée",
+    "openEmail": "Ouvrir le client e-mail",
+    "openTelegram": "Ouvrir Telegram",
+    "openGithub": "Ouvrir GitHub",
+    "openLinkedin": "Ouvrir LinkedIn"
   },
   "footer": {
-    "built": "Construit avec Nuxt et le kit UI LeavePulse — thème lime.",
+    "built": "Construit avec Nuxt et le kit UI LeavePulse - thème sombre personnalisé.",
     "location": "Ingénieur freelance · France"
   }
 }
