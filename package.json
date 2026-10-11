@@ -12,7 +12,7 @@
   "dependencies": {
     "@iconify-json/lucide": "^1.2.112",
     "@iconify/vue": "^5.0.1",
-    "@leavepulse/ui": "0.36.1",
+    "@leavepulse/ui": "0.40.1",
     "@nuxtjs/i18n": "^9.5.3",
     "motion-v": "^2.2.1",
     "nuxt": "^3.14.0",

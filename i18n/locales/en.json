@@ -35,7 +35,17 @@
     "work": "Browse selected projects",
     "stack": "See the technical stack",
     "services": "See ways to work together",
-    "contact": "Get in touch"
+    "contact": "Get in touch",
+    "settings": "Preferences",
+    "theme": "Theme",
+    "themeHint": "Pick a color theme",
+    "themePlaceholder": "Choose a theme…",
+    "language": "Language",
+    "languageHint": "Switch interface language",
+    "languagePlaceholder": "Choose a language…",
+    "recent": "Recent",
+    "results": "Results",
+    "stackLabel": "Stack"
   },
   "shortcuts": {
     "title": "Keyboard shortcuts",
@@ -47,7 +57,14 @@
     "select": "select",
     "close": "close",
     "back": "back",
-    "searching": "Searching…"
+    "searching": "Searching…",
+    "actions": "actions",
+    "openInNewTab": "Open in new tab",
+    "copyLink": "Copy link",
+    "linkCopied": "Link copied",
+    "showMore": "Show {count} more",
+    "paletteActions": "Row actions in the palette",
+    "paletteNewTab": "Open result in a new tab"
   },
   "hero": {
     "eyebrow": "Backend · Full-stack · Available for freelance",

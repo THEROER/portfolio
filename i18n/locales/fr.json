@@ -35,7 +35,17 @@
     "work": "Parcourir les projets sélectionnés",
     "stack": "Voir la stack technique",
     "services": "Voir les façons de travailler ensemble",
-    "contact": "Prendre contact"
+    "contact": "Prendre contact",
+    "settings": "Préférences",
+    "theme": "Thème",
+    "themeHint": "Choisir un thème de couleurs",
+    "themePlaceholder": "Choisir un thème…",
+    "language": "Langue",
+    "languageHint": "Changer la langue de l’interface",
+    "languagePlaceholder": "Choisir une langue…",
+    "recent": "Récents",
+    "results": "Résultats",
+    "stackLabel": "Stack"
   },
   "shortcuts": {
     "title": "Raccourcis clavier",
@@ -47,7 +57,14 @@
     "select": "sélectionner",
     "close": "fermer",
     "back": "retour",
-    "searching": "Recherche…"
+    "searching": "Recherche…",
+    "actions": "actions",
+    "openInNewTab": "Ouvrir dans un nouvel onglet",
+    "copyLink": "Copier le lien",
+    "linkCopied": "Lien copié",
+    "showMore": "Afficher {count} de plus",
+    "paletteActions": "Actions de la ligne dans la palette",
+    "paletteNewTab": "Ouvrir le résultat dans un nouvel onglet"
   },
   "hero": {
     "eyebrow": "Backend · Full-stack · Disponible en freelance",

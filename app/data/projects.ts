@@ -6,6 +6,7 @@ export interface ProjectLink {
 export const projectDefinitions = [
   {
     id: "leavepulse",
+    icon: "lucide:activity",
     accent: true,
     stack: ["Python", "Rust", "gRPC", "NATS", "ClickHouse"],
     technologies: ["Python", "Rust", "TypeScript", "Vue 3", "Nuxt", "Tauri", "FastAPI", "Litestar", "gRPC", "msgspec", "SQLAlchemy 2.0", "PostgreSQL", "Redis", "ClickHouse", "NATS JetStream", "Prometheus", "Docker", "GitHub Actions", "GHCR"],
@@ -13,6 +14,7 @@ export const projectDefinitions = [
   },
   {
     id: "cursio",
+    icon: "lucide:monitor-smartphone",
     accent: false,
     stack: ["Rust", "Tokio", "Noise", "SPAKE2", "GStreamer"],
     technologies: ["Rust", "Docker"],
@@ -20,6 +22,7 @@ export const projectDefinitions = [
   },
   {
     id: "sdkgen",
+    icon: "lucide:file-code-2",
     accent: false,
     stack: ["Rust", "OpenAPI", "TypeScript", "Python", "SDKs"],
     technologies: ["Python", "Rust", "TypeScript", "GitHub Actions"],
@@ -27,6 +30,7 @@ export const projectDefinitions = [
   },
   {
     id: "toolkit",
+    icon: "lucide:wrench",
     accent: false,
     stack: ["Python", "Litestar", "gRPC", "Redis", "OpenTelemetry"],
     technologies: ["Python", "Litestar", "gRPC", "Redis", "SQLAlchemy 2.0", "OpenTelemetry", "Prometheus"],
@@ -34,6 +38,7 @@ export const projectDefinitions = [
   },
   {
     id: "magicutils",
+    icon: "lucide:pickaxe",
     accent: false,
     stack: ["Java", "Kotlin", "Gradle", "Adventure", "Minecraft"],
     technologies: ["Java", "Kotlin"],
@@ -45,6 +50,7 @@ export const projectDefinitions = [
   },
   {
     id: "agent",
+    icon: "lucide:server-cog",
     accent: false,
     stack: ["Java", "WebSocket", "HTTP", "Ed25519", "Gradle"],
     technologies: ["Java"],
@@ -52,6 +58,7 @@ export const projectDefinitions = [
   },
   {
     id: "uikit",
+    icon: "lucide:component",
     accent: false,
     stack: ["Vue 3", "Tailwind v4", "Reka UI", "TypeScript", "Motion"],
     technologies: ["TypeScript", "Vue 3", "Nuxt", "Tailwind v4"],

@@ -24,21 +24,23 @@ useSeoMeta({
 <template>
   <div>
     <main class="section py-16 sm:py-24">
-      <NuxtLink to="/#work" class="case-back">
-        <LpIcon name="lucide:arrow-left" :size="16" />
-        {{ t("projectPage.back") }}
-      </NuxtLink>
+      <Reveal :y="12">
+        <NuxtLink to="/#work" class="case-back">
+          <LpIcon name="lucide:arrow-left" :size="16" />
+          {{ t("projectPage.back") }}
+        </NuxtLink>
+      </Reveal>
 
       <article class="mt-10 max-w-4xl">
-        <p class="eyebrow">{{ t(`projects.${project.id}.tag`) }}</p>
-        <h1 class="mt-4 text-4xl font-bold tracking-tight sm:text-6xl">
+        <Reveal :delay="0.06" as="p" class="eyebrow">{{ t(`projects.${project.id}.tag`) }}</Reveal>
+        <Reveal :delay="0.12" as="h1" class="mt-4 text-4xl font-bold tracking-tight sm:text-6xl">
           {{ t(`projects.${project.id}.title`) }}
-        </h1>
-        <p class="mt-6 max-w-3xl text-lg leading-relaxed text-muted">
+        </Reveal>
+        <Reveal :delay="0.18" as="p" class="mt-6 max-w-3xl text-lg leading-relaxed text-muted">
           {{ t(`projects.${project.id}.summary`) }}
-        </p>
+        </Reveal>
 
-        <div class="case-meta mt-9">
+        <Reveal :delay="0.24" class="case-meta mt-9">
           <div>
             <p class="case-meta__label">{{ t("projectPage.stack") }}</p>
             <ul class="case-meta__stack">
@@ -59,15 +61,20 @@ useSeoMeta({
               </LpButton>
             </a>
           </div>
-        </div>
+        </Reveal>
 
         <section class="case-notes mt-14">
-          <p class="eyebrow mb-5">{{ t("projectPage.notes") }}</p>
+          <Reveal :delay="0.3" as="p" class="eyebrow mb-5">{{ t("projectPage.notes") }}</Reveal>
           <ol>
-            <li v-for="(point, index) in points" :key="point">
+            <Reveal
+              v-for="(point, index) in points"
+              :key="point"
+              as="li"
+              :delay="0.34 + index * 0.06"
+            >
               <span>0{{ index + 1 }}</span>
               <p>{{ point }}</p>
-            </li>
+            </Reveal>
           </ol>
         </section>
       </article>

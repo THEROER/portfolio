@@ -75,6 +75,11 @@ body {
   box-shadow: 0 4px 18px color-mix(in srgb, var(--color-brand) 28%, transparent);
 }
 
+/* Ctrl+K palette: the glass card blurs on its own, so the backdrop only dims. */
+.lp-scrim--light {
+  --scrim-blur: 0px;
+}
+
 .command-trigger {
   align-items: center;
   gap: 0.45rem;
