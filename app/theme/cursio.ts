@@ -1,0 +1,43 @@
+import { defineTheme } from "@leavepulse/ui"
+
+export const cursioTheme = defineTheme("dark", {
+  name: "Cursio",
+  mode: "dark",
+  colors: {
+    surface: "#0b100f",
+    surfaceRaised: "#101715",
+    surfaceSoft: "#16201a",
+    ink: "#f0f3e9",
+    inkInverse: "#10150c",
+    muted: "#9aa69c",
+    mutedStrong: "#c4cdc3",
+    brand: "#b8f36a",
+    brandHover: "#cbff8a",
+    brandSoft: "rgba(184, 243, 106, 0.12)",
+    action: "#b8f36a",
+    actionHover: "#cbff8a",
+    actionSoft: "rgba(184, 243, 106, 0.12)",
+    accent: "#8dc94c",
+    accentHover: "#a5dd66",
+    accentSoft: "rgba(141, 201, 76, 0.12)",
+    danger: "#ff7d74",
+    dangerHover: "#ff9a91",
+    dangerSoft: "rgba(255, 125, 116, 0.12)",
+    line: "rgba(196, 211, 195, 0.14)",
+    lineStrong: "rgba(184, 243, 106, 0.38)",
+    ring: "rgba(184, 243, 106, 0.5)",
+  },
+  shape: { radiusControl: 4, radiusCard: 8, radiusPill: 9999 },
+  font: {
+    sans: '"Instrument Sans", "Segoe UI", sans-serif',
+    mono: '"IBM Plex Mono", ui-monospace, monospace',
+  },
+  surface: {
+    borderWidth: "1px",
+    panelBlur: "12px",
+    panelSaturate: "110%",
+    panelOverlay: "linear-gradient(145deg, rgba(184, 243, 106, 0.035), rgba(11, 16, 15, 0.06))",
+    panelShadow: "0 18px 48px rgba(0, 0, 0, 0.3)",
+    panelInset: "inset 0 1px 0 rgba(240, 243, 233, 0.04)",
+  },
+})

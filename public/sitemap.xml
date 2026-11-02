@@ -3,14 +3,32 @@
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://theroer.dev/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://theroer.dev/" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://theroer.dev/fr" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://theroer.dev/" />
   </url>
   <url>
-    <loc>https://theroer.dev/fr</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://theroer.dev/" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://theroer.dev/fr" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://theroer.dev/" />
+    <loc>https://cursio.theroer.dev/</loc>
+  </url>
+  <url>
+    <loc>https://theroer.dev/work</loc>
+  </url>
+  <url>
+    <loc>https://theroer.dev/projects/leavepulse</loc>
+  </url>
+  <url>
+    <loc>https://theroer.dev/projects/cursio</loc>
+  </url>
+  <url>
+    <loc>https://theroer.dev/projects/sdkgen</loc>
+  </url>
+  <url>
+    <loc>https://theroer.dev/projects/toolkit</loc>
+  </url>
+  <url>
+    <loc>https://theroer.dev/projects/magicutils</loc>
+  </url>
+  <url>
+    <loc>https://theroer.dev/projects/agent</loc>
+  </url>
+  <url>
+    <loc>https://theroer.dev/projects/uikit</loc>
   </url>
 </urlset>

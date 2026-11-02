@@ -18,7 +18,17 @@ const points = computed(() => {
 useSeoMeta({
   title: () => `${t(`projects.${project.id}.title`)} · THEROER`,
   description: () => t(`projects.${project.id}.summary`),
+  ogTitle: () => `${t(`projects.${project.id}.title`)} · THEROER`,
+  ogDescription: () => t(`projects.${project.id}.summary`),
+  ogType: "article",
+  twitterCard: "summary",
 })
+
+const localeHead = useLocaleHead()
+useHead(() => ({
+  htmlAttrs: { ...localeHead.value.htmlAttrs },
+  link: [...(localeHead.value.link ?? [])],
+}))
 </script>
 
 <template>
@@ -48,6 +58,17 @@ useSeoMeta({
             </ul>
           </div>
           <div v-if="project.links.length" class="case-actions">
+            <a
+              v-if="project.id === 'cursio'"
+              href="https://cursio.theroer.dev/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <LpButton variant="outline" size="sm">
+                <LpIcon name="lucide:arrow-up-right" :size="15" class="mr-1.5" />
+                Cursio website
+              </LpButton>
+            </a>
             <a
               v-for="link in project.links"
               :key="link.href"

@@ -4,7 +4,10 @@ import {
   LpScrollArea,
   LpShift,
   LpShortcutsDialog,
+  LpThemeProvider,
   LpToaster,
+  THEME_COOKIE,
+  themeFromCookie,
   useClipboard,
   useHotkeys,
   useTheme,
@@ -13,13 +16,21 @@ import {
 } from "@leavepulse/ui"
 import { projectDefinitions } from "~/data/projects"
 import { allPortfolioThemes } from "~/theme/themes"
+import { cursioTheme } from "~/theme/cursio"
+import { theroer } from "~/theme/theroer"
 
 type ScrollAreaInstance = { viewportEl: HTMLElement | null }
 
 const route = useRoute()
+const isCursioPage = computed(() => route.path === "/cursio")
+const themeCookie = useCookie<string | null>(THEME_COOKIE)
+const cookieTheme = themeFromCookie(themeCookie.value, allPortfolioThemes) ?? theroer
 const { t, locale, setLocale } = useI18n()
 const { contacts } = useProfile()
-const { currentName: currentTheme, setTheme } = useTheme()
+const { current: activeTheme, currentName: currentTheme, setTheme } = useTheme()
+const pageTheme = computed(() =>
+  isCursioPage.value ? cursioTheme : activeTheme.value ?? cookieTheme,
+)
 const { copy } = useClipboard()
 const scrollArea = ref<ScrollAreaInstance | null>(null)
 const commandPaletteOpen = useState("command-palette-open", () => false)
@@ -233,22 +244,24 @@ onMounted(async () => {
 
 <template>
   <div class="relative h-dvh">
-    <SiteHeader />
-    <LpScrollArea
-      ref="scrollArea"
-      class="h-full"
-      content-class="min-h-full pt-16"
-      bar-inset-top="4rem"
-      :fade="false"
-    >
-      <LpShift axis="height" class="min-h-full">
-        <NuxtPage v-slot="{ Component }">
-          <Transition name="locale-page" mode="out-in">
-            <component :is="Component" :key="locale" />
-          </Transition>
-        </NuxtPage>
-      </LpShift>
-    </LpScrollArea>
+    <SiteHeader v-if="!isCursioPage" />
+    <LpThemeProvider as="div" class="h-full" :theme="pageTheme">
+      <LpScrollArea
+        ref="scrollArea"
+        class="h-full"
+        :content-class="isCursioPage ? 'min-h-full' : 'min-h-full pt-16'"
+        bar-inset-top="4rem"
+        :fade="false"
+      >
+        <LpShift axis="height" class="min-h-full">
+          <NuxtPage v-slot="{ Component }">
+            <Transition name="locale-page" mode="out-in">
+              <component :is="Component" :key="locale" />
+            </Transition>
+          </NuxtPage>
+        </LpShift>
+      </LpScrollArea>
+    </LpThemeProvider>
   </div>
 
   <LpCommandPalette
